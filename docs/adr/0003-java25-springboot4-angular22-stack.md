@@ -6,6 +6,28 @@
 
 ---
 
+## Fallback activo
+
+**Registrado:** 2026-06-29  
+**Versión elegida para el bootstrap:** Java 21 LTS con Spring Boot 4.0.7.
+
+### Causa
+
+El ambiente de desarrollo y build disponible para iniciar el proyecto cuenta con Eclipse Temurin Java 21 LTS y no dispone de Java 25. Mantener Java 25 impediría ejecutar localmente la compilación y la validación obligatoria del backend.
+
+### Impacto
+
+- El bytecode y la configuración de Maven usarán Java 21.
+- No se utilizarán APIs ni language features posteriores a Java 21.
+- La arquitectura, Spring Boot 4.x, PostgreSQL 18, Angular 22, multi-tenancy y RLS no cambian.
+- El backend deberá permanecer compatible con una actualización incremental a Java 25.
+
+### Reevaluación
+
+Revisar la disponibilidad de Java 25 antes de cerrar Fase 2 y, como fecha límite, el 2026-09-30. Si el ambiente y las dependencias están validados, crear un ticket independiente para actualizar compilación, CI y documentación a Java 25.
+
+---
+
 ## Contexto
 
 EduCore SGE se inicia como SaaS multi-tenant con horizonte de evolución de diez años. Conviene arrancar con versiones modernas y soportadas, pero sin bloquear la implementación si una pieza del ecosistema presenta incompatibilidades reales al momento de crear el proyecto.
