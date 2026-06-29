@@ -8,7 +8,7 @@ Monolito modular con arquitectura hexagonal y DDD táctico.
 
 ## Stack objetivo
 
-- Backend: Java 25 LTS y Spring Boot 4.x estable.
+- Backend: Java 21 LTS y Spring Boot 4.0.7, como fallback documentado en ADR-0003; Java 25 LTS permanece como objetivo.
 - Frontend: Angular 22.
 - Base de datos: PostgreSQL 18.
 - Infraestructura: Docker, GitHub Actions y AWS.
