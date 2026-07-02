@@ -3,13 +3,24 @@ spring:
     name: educore-sge-backend
   profiles:
     default: local
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/educore_sge?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: Root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # jpa debe ir con dos espacios, alineado con datasource
   jpa:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+
+  # flyway también debe ir con dos espacios, alineado con jpa y datasource
   flyway:
     enabled: true
 
+# La sección management queda completamente separada, pegada al margen izquierdo
 management:
   endpoints:
     web:
