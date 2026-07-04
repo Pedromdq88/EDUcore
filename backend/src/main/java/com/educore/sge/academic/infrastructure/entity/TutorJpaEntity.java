@@ -1,23 +1,36 @@
 package com.educore.sge.academic.infrastructure.entity;
 
 import com.educore.sge.shared.BaseInstitutionEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tutors")
 public class TutorJpaEntity extends BaseInstitutionEntity {
 
     @Id
+    @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "document_number", nullable = false)
     private String documentNumber;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "phone")
     private String phone;
-    private String relationship; // Ej: "Madre", "Padre", "Tutor Legal"
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "relationship", nullable = false)
+    private RelationshipType relationship;
+
+    public TutorJpaEntity() {}
 
     // Getters y Setters
     public String getId() { return id; }
@@ -38,6 +51,6 @@ public class TutorJpaEntity extends BaseInstitutionEntity {
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    public String getRelationship() { return relationship; }
-    public void setRelationship(String relationship) { this.relationship = relationship; }
+    public RelationshipType getRelationship() { return relationship; }
+    public void setRelationship(RelationshipType relationship) { this.relationship = relationship; }
 }

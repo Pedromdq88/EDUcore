@@ -1,6 +1,7 @@
 package com.educore.sge.academic.infrastructure.entity;
 
 import com.educore.sge.shared.BaseInstitutionEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class StudentJpaEntity extends BaseInstitutionEntity {
     private String lastName;
 
     @Column(name = "document_number", nullable = false)
-    private String documentNumber;
+    private String documentNumber; // Actúa como DNI
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
@@ -33,7 +34,7 @@ public class StudentJpaEntity extends BaseInstitutionEntity {
     private String legajoNumber;
 
     @Column(name = "classroom")
-    private String classroom;
+    private String classroom; // Nombre o ID de la Sala
 
     @Column(name = "blood_type")
     private String bloodType;
@@ -43,6 +44,16 @@ public class StudentJpaEntity extends BaseInstitutionEntity {
 
     @Column(name = "allergies")
     private String allergies;
+
+    // ---- NUEVOS CAMPOS INCORPORADOS ----
+    @Column(name = "lugar_nacimiento")
+    private String lugarNacimiento;
+
+    @Column(name = "direccion")
+    private String direccion;
+
+    @Column(name = "telefono_contacto")
+    private String telefonoContacto;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -55,7 +66,6 @@ public class StudentJpaEntity extends BaseInstitutionEntity {
         inverseJoinColumns = @JoinColumn(name = "tutor_id")
     )
     private List<TutorJpaEntity> tutors = new ArrayList<>();
-
     public StudentJpaEntity() {}
 
     // Getters y Setters
@@ -92,16 +102,25 @@ public class StudentJpaEntity extends BaseInstitutionEntity {
     public String getAllergies() { return allergies; }
     public void setAllergies(String allergies) { this.allergies = allergies; }
 
+    public String getLugarNacimiento() { return lugarNacimiento; }
+    public void setLugarNacimiento(String lugarNacimiento) { this.lugarNacimiento = lugarNacimiento; }
+
+    public String getDireccion() { return direccion; }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public String getTelefonoContacto() { return telefonoContacto; }
+    public void setTelefonoContacto(String telefonoContacto) { this.telefonoContacto = telefonoContacto; }
+
     public List<TutorJpaEntity> getTutors() { return tutors; }
     public void setTutors(List<TutorJpaEntity> tutors) { this.tutors = tutors; }
 
-    // ESTE ES EL MÉTODO QUE TU SERVICIO ESTÁ BUSCANDO
+
+    // Método de vinculación lógica para soportar uno o más tutores
     public void addTutor(TutorJpaEntity tutor) {
         if (!this.tutors.contains(tutor)) {
             this.tutors.add(tutor);
         }
     }
-
 
     public StudentStatus getStatus() { return status; }
     public void setStatus(StudentStatus status) { this.status = status; }
