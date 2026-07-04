@@ -22,15 +22,15 @@ public class StudentController {
     }
 
     // SOLO Directora y Profesora pueden crear alumnos
-    @PreAuthorize("hasAnyRole('DIRECTOR', 'TEACHER')")
+    @PreAuthorize("hasRole('TEACHER')")
     @PostMapping
     public StudentJpaEntity createStudent(@RequestBody StudentJpaEntity student) {
         student.setId(UUID.randomUUID().toString());
         return repository.save(student);
     }
 
-    // SOLO Directora y Profesora pueden vincular tutores
-    @PreAuthorize("hasAnyRole('DIRECTOR', 'TEACHER')")
+    // Al poner 'TEACHER', permites automáticamente a: TEACHER, ADMINISTRATIVE, DIRECTOR y OWNER
+    @PreAuthorize("hasRole('TEACHER')")
     @PostMapping("/{studentId}/tutors/{tutorId}")
     public void linkTutor(@PathVariable String studentId, @PathVariable String tutorId) {
         studentTutorService.linkTutorToStudent(studentId, tutorId);

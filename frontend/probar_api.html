@@ -2,106 +2,200 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>EduCore SGE - Panel de Pruebas de Admisión</title>
+  <title>EDUcore - Sistema de Gestión Escolar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 30px auto; padding: 20px; background: #f4f6f9; color: #333; }
-    .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
-    h2 { margin-top: 0; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; color: #475569; }
-    input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; font-size: 14px; }    input:focus { border-color: #3b82f6; outline: none; }
-    button { background: #2563eb; color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; font-weight: bold; }
-    button:hover { background: #1d4ed8; }
-    pre { background: #0f172a; color: #38bdf8; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 13px; max-height: 250px; }
-    .status { font-weight: bold; padding: 10px; border-radius: 4px; margin-top: 10px; display: none; }
-    .success { background: #dcfce7; color: #16a34a; }
-    .error { background: #fee2e2; color: #dc2626; }
+    .bg-once-green { background-color: #008a45; }
+    .text-once-green { color: #008a45; }
+    .border-once-green { border-color: #008a45; }
+    .hover-once-green:hover { background-color: #006f37; }
   </style>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
+<!-- ================= VISTA 1: LOGIN UNIFICADO EDUCORE ================= -->
+<<!-- LOGIN -->
+<!-- LOGIN -->
+<div id="loginView"
+     class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10">
 
-<div class="card">
-  <h2>EduCore SGE - Registro de Alumnos</h2>
+  <div class="flex flex-col items-center">
 
-  <div class="form-group">
-    <label>ID de la Institución (Colegio):</label>
-    <input type="text" id="institutionId" value="88888888-4444-4444-4444-121212121212">
+    <!-- Logo -->
+
+    <img src="img/educore-logo.png"
+         class="w-72 mx-auto mb-6"
+         alt="EDUcore">
+
+    <p class="text-gray-400 text-sm text-center mb-8">
+      Portal unificado de autenticación de establecimientos.
+    </p>
+
   </div>
 
-  <div class="form-group">
-    <label>Nombre del Alumno:</label>
-    <input type="text" id="firstName" value="Juan">
-  </div>
+  <form id="formLogin"
+        onsubmit="procesarLogin(event)"
+        class="space-y-5">
 
-  <div class="form-group">
-    <label>Apellido del Alumno:</label>
-    <input type="text" id="lastName" value="Perez">
-  </div>
+    <div>
 
-  <div class="form-group">
-    <label>Número de Documento:</label>
-    <input type="text" id="documentNumber" value="55123456">
-  </div>
+      <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
+        Usuario / Email
+      </label>
 
-  <div class="form-group">
-    <label>Fecha de Nacimiento (Sala de 3, 4 o 5):</label>
-    <input type="date" id="birthDate" value="2022-04-12">
-  </div>
+      <input
+        type="email"
+        id="loginEmail"
+        value="pedromdq8@gmail.com"
+        required
+        class="w-full rounded-2xl border border-gray-300 px-5 py-3 bg-gray-50 focus:ring-2 focus:ring-blue-800 focus:outline-none">
 
-  <button onclick="enviarDatos()">Enviar Matrícula al Backend</button>
-  <div id="statusBox" class="status"></div>
+    </div>
+
+    <div>
+
+      <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
+        Contraseña
+      </label>
+
+      <input
+        type="password"
+        id="loginPassword"
+        value="1234"
+        required
+        class="w-full rounded-2xl border border-gray-300 px-5 py-3 bg-gray-50 focus:ring-2 focus:ring-blue-800 focus:outline-none">
+
+    </div>
+
+    <button
+      type="submit"
+      class="w-full mt-6 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white py-4 font-bold uppercase tracking-wider transition">
+
+      Ingresar al sistema
+
+    </button>
+
+    <p
+      id="loginError"
+      class="hidden text-center text-red-600 text-sm font-semibold">
+
+      Credenciales incorrectas.
+
+    </p>
+
+  </form>
+
 </div>
 
-<div class="card">
-  <h2>Respuesta del Servidor (JSON)</h2>
-  <pre id="jsonResponse">// Aquí aparecerá la respuesta de tu base de datos MySQL...</pre>
+<!-- ================= VISTA 2: ENTORNO EXCLUSIVO JARDÍN ONCE UNIDOS ================= -->
+<div id="portalView" class="w-full max-w-7xl hidden animate-fade-in">
+  <!-- Header del Jardín Oficial -->
+  <header class="bg-once-green text-white shadow-md px-6 py-4 flex justify-between items-center rounded-t-2xl border-b-4 border-gray-200">
+    <div class="flex items-center gap-4">
+      <!-- Escudo Vectorial Oficial del Club Atlético Once Unidos -->
+      <div class="bg-white p-1 rounded shadow-sm flex items-center justify-center">
+        <svg class="h-14 w-auto" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 200 450 C 320 380 370 260 370 100 C 270 100 230 50 200 20 C 170 50 130 100 30 100 C 30 260 80 380 200 450 Z" fill="#ffffff" stroke="#008a45" stroke-width="12"/>
+          <path d="M 200 23 C 200 23 200 230 200 442 C 310 375 358 262 358 112 C 270 112 225 65 200 23 Z" fill="#008a45"/>
+          <path d="M 42 112 C 42 262 90 375 200 442 L 200 230 L 42 230 Z" fill="#008a45"/>
+          <text x="115" y="180" font-family="Arial, sans-serif" font-weight="900" font-size="95" fill="#008a45" text-anchor="middle">C</text>
+          <text x="285" y="180" font-family="Arial, sans-serif" font-weight="900" font-size="95" fill="#ffffff" text-anchor="middle">A</text>
+          <text x="115" y="370" font-family="Arial, sans-serif" font-weight="900" font-size="95" fill="#ffffff" text-anchor="middle">O</text>
+          <text x="285" y="370" font-family="Arial, sans-serif" font-weight="900" font-size="95" fill="#008a45" text-anchor="middle">U</text>
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-xl font-black uppercase tracking-wider text-white">Jardín Once Unidos</h2>
+        <p class="text-xs text-green-100 font-medium">📍 Av. Carlos Tejedor, Mar del Plata | Ciclo Lectivo 2027</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <div class="text-right">
+        <div class="text-xs font-bold bg-black/25 px-3 py-1 rounded-md">Directora: pedromdq8@gmail.com</div>
+        <div class="text-[10px] text-gray-200 mt-1 uppercase font-bold tracking-wide">Régimen: 2 Informes Anuales</div>
+      </div>
+      <button onclick="cerrarSesion()" class="text-xs bg-red-700 hover:bg-red-800 px-3 py-2 rounded-xl font-bold uppercase transition">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <!-- Contenido Principal del Portal Escolar -->
+  <div class="bg-white p-6 rounded-b-2xl shadow-xl border-x border-b grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Panel de Acciones de Dirección -->
+    <div class="lg:col-span-1 space-y-4">
+      <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-3">
+        <h3 class="font-bold text-gray-800 text-xs uppercase tracking-wider border-b pb-2 text-once-green">🔒 Panel Superior de Dirección</h3>
+
+        <button class="w-full bg-once-green text-white font-bold py-2 px-4 rounded-xl text-xs uppercase tracking-wider transition hover-once-green shadow-sm">
+          ➕ Registrar Nueva Docente
+        </button>
+
+        <div class="pt-2">
+          <span class="text-[10px] font-bold uppercase text-gray-500 block mb-1">Carga Masiva (Excel de Salita):</span>
+          <label class="w-full flex flex-col items-center px-4 py-2 bg-white text-once-green rounded-lg border border-dashed border-once-green cursor-pointer hover:bg-green-50 transition text-xs font-bold uppercase tracking-wider">
+            <span>Subir Alumnos Turno Mañana</span>
+            <input type="file" class="hidden" accept=".xlsx, .xls">
+          </label>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 text-xs space-y-2">
+        <h4 class="font-bold text-gray-700 uppercase tracking-wide">Salas Oficiales (Turno Mañana):</h4>
+        <ul class="space-y-1 text-gray-600 font-medium list-disc pl-4">
+          <li>Sala Maternal</li>
+          <li>Sala Integrada (2 y 3 años)</li>
+          <li>Sala de 4 años</li>
+          <li>Sala de 5 años</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Cuerpo del Panel Temporal -->
+    <div class="lg:col-span-2 bg-gray-50 p-6 rounded-xl border border-dashed border-gray-300 flex flex-col justify-center items-center">
+      <div class="text-center space-y-2">
+        <p class="text-md font-bold text-gray-800">¡Ingreso de Entorno Correcto!</p>
+        <p class="text-xs text-gray-600 max-w-md">El core multi-tenant identificó las credenciales y levantó la hoja de estilos e identidad del **Jardín Atlético Once Unidos**.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-  async function enviarDatos() {
-    const url = 'http://localhost:8080/api/v1/students';
-    const instId = document.getElementById('institutionId').value;
-    const statusBox = document.getElementById('statusBox');
-    const jsonResponse = document.getElementById('jsonResponse');
-
-    const payload = {
-      firstName: document.getElementById('firstName').value,
-      lastName: document.getElementById('lastName').value,
-      documentNumber: document.getElementById('documentNumber').value,
-      birthDate: document.getElementById('birthDate').value
-    };
-
-    statusBox.style.display = 'block';
-    statusBox.className = 'status';
-    statusBox.innerText = 'Enviando petición a Spring Boot...';
-    jsonResponse.innerText = 'Cargando...';
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Institution-Id': instId
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        statusBox.classList.add('success');
-        statusBox.innerText = '¡Conexión Exitosa! Alumno guardado en MySQL de forma segura.';
-        jsonResponse.innerText = JSON.stringify(data, null, 2);
-      } else {
-        statusBox.classList.add('error');
-        statusBox.innerText = 'Error del Servidor: ' + response.status;
-        jsonResponse.innerText = JSON.stringify(data, null, 2);
-      }
-    } catch (error) {
-      statusBox.classList.add('error');
-      statusBox.innerText = 'Error de Red: No se pudo conectar con http://localhost:8080. ¿Prendiste el backend?';
-      jsonResponse.innerText = error.toString();
+  // Datos en memoria mapeando exactamente a tu insert SQL real
+  const simuladorDeCuentas = {
+    "pedromdq8@gmail.com": {
+      password: "1234",
+      tenantId: "once-unidos-uuid"
     }
+  };
+
+  function procesarLogin(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('loginEmail').value;
+    const pass = document.getElementById('loginPassword').value;
+    const errorLabel = document.getElementById('loginError');
+
+    const cuentaValida = simuladorDeCuentas[email];
+
+    if (cuentaValida && cuentaValida.password === pass) {
+      errorLabel.classList.add('hidden');
+
+      // Redirección contextual si pertenece al jardín de Once Unidos
+      if (cuentaValida.tenantId === 'once-unidos-uuid') {
+        document.getElementById('loginView').classList.add('hidden');
+        document.getElementById('portalView').classList.remove('hidden');
+        document.body.className = "bg-gray-100 min-h-screen font-sans p-6 flex flex-col items-center justify-start";
+      }
+    } else {
+      errorLabel.classList.remove('hidden');
+    }
+  }
+
+  function cerrarSesion() {
+    document.getElementById('portalView').classList.add('hidden');
+    document.getElementById('loginView').classList.remove('hidden');
+    document.body.className = "bg-gray-100 min-h-screen font-sans flex flex-col justify-center items-center p-4";
   }
 </script>
 </body>
